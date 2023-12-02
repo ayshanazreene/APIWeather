@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <link rel="stylesheet" href="./style.css">
+
+</head>
+<body>
+    <div class="container main d-flex" >
+        <div class=" container-fluid base position-relative">
+            
+            <img src="https://wallpapercave.com/wp/wp1968257.jpg" alt="" style="height: 100vh; width: 100%;" class="position-absolute">
+            <div class=" position-relative">
+            <p class=" position-absolute fw-bold p-3">WEATHER</p>
+            <div id="weather" class="weather position-absolute fw-bold p-3">
+                
+                <div class="temp" id="temp"></div>
+                <div class="mocktemp" id="mocktemp"></div>
+                <div class="name" id="name"></div>
+                <div class="date" id="date"></div>
+            </div>
+            <div class="search p-2">
+                <hr>
+                <input type="text" placeholder="kakkanad" class="w-50 border-0" id="search">
+                <hr>
+                <div>
+                <button id="search">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                </button>
+                </div>
+                <hr>
+                <div class="fs-5">WEATHER DETAILS</div>
+                <div class="country">country</div>
+                <div id="country" class="country text-dark"></div>
+                <div class="country">Humidity</div>
+                <div id="humidity" class="country text-dark"></div>
+                <div class="country">Wind</div>
+                <div id="wind" class="country text-dark"></div>
+                <div class="country">Pressure</div>
+                <div id="pressure" class="country text-dark"></div>
+                <hr>
+            </div>
+            <div class="text-center" id="wmain"></div>
+        </div>
+
+        </div>
+        
+
+        </div>
+    </div>
+
+
+    <script>
+        fetch("https://api.openweathermap.org/data/2.5/weather?q=kakkanad&appid=8ac5c4d57ba6a4b3dfcf622700447b1e&units=metric").then(response=>response.json().then(post=>{
+            console.log(post.weather)
+            const wm=post.weather
+            
+            
+            document.getElementById("temp").innerHTML=post["main"].temp
+            document.getElementById("mocktemp").innerHTML="feels like "+post["main"].feels_like
+            document.getElementById("name").innerHTML=post["name"]
+            document.getElementById("date").innerHTML=new Date()
+            document.getElementById("country").innerHTML=post["sys"].country
+            document.getElementById("humidity").innerHTML=post["main"].humidity
+            document.getElementById("wind").innerHTML=post["wind"].speed+"kmph"
+            document.getElementById("pressure").innerHTML=post["main"].pressure
+            wm.forEach(wmm=>document.getElementById("wmain").innerHTML=wmm.main)
+        }))
+    </script>
+
+    <!-- <script src="./main.js"></script> -->
+</body>
+</html>
